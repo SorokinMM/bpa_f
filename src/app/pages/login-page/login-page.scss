@@ -1,0 +1,60 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  height: 100dvh;
+  align-items: center;
+  margin: 0 5%;
+}
+
+.h1 {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 800;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; // Расстояние между полями ввода
+  max-width: 400px; // Ограничим ширину формы, чтобы она не растягивалась на весь экран
+  margin: 0 auto;   // Центрируем форму
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column; // Текст будет НАД инпутом
+  gap: 8px;              // Расстояние между текстом "Username" и полем ввода
+  font-size: 14px;
+  color: var(--dark-grey); // Та самая переменная из app.scss
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; // ВАЖНО: чтобы padding не увеличивал ширину инпута больше 100%
+  background-color: var(--light-blue);
+  color: var(--dark-grey);
+
+  &:focus {
+    outline: none;
+    border-color: var(--dark-blue); // Твоя переменная для подсветки
+  }
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--light-grey); // Кнопка твоего цвета
+  color: var(--dark-grey); // Цвет текста на кнопке
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

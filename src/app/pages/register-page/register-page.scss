@@ -1,0 +1,93 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; /* Замена width/height на right/bottom решает баги с высотой на смартфонах */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px); /* Модный эффект размытия заднего плана (матовое стекло) */
+  font-family: sans-serif;
+  color: var(--dark-grey);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.register-label {
+  gap: 8px;              // Расстояние между текстом "Username" и полем ввода
+  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 5px;
+}
+
+.register-input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; // ВАЖНО: чтобы padding не увеличивал ширину инпута больше 100%
+  background-color: var(--light-blue);
+}
+
+.modal-form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px; /* Мягкие скругленные углы */
+  width: 100%;
+  max-width: 450px; /* Ограничение по ширине, чтобы на десктопе форма не была гигантской */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Красивая глубокая тень */
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;        /* Делаем крестик крупным и удобным для клика */
+  line-height: 1;         /* Убираем лишние скрытые отступы у шрифта */
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;             /* Убираем дефолтные паддинги кнопки */}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.register-button {
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+  padding: 15px;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-banner {
+  background-color: #fde8e8; /* Мягкий красный фон */
+  color: #e53e3e;            /* Насыщенный красный текст */
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #f8b4b4;
+  font-size: 14px;
+  margin-bottom: 15px;
+  font-family: sans-serif;
+}

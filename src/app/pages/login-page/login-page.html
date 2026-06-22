@@ -22,5 +22,11 @@
       formControlName="password"
     >
   </label>
+  <a href="#" class="btn-primary" (click)="$event.preventDefault(); openModal()">Register</a>
   <button class="login-button" type="submit">Login</button>
 </form>
+
+<app-register-page
+  [isOpen]="isRegisterFormOpen"
+  (closeRegisterForm)="isRegisterFormOpen = false">
+</app-register-page>

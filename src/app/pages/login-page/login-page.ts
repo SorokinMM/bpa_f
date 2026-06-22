@@ -6,19 +6,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Auth } from '../../auth/auth';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { RegisterPage } from '../register-page/register-page';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RegisterPage],
   templateUrl: './login-page.html',
   styleUrl: './login-page.scss',
 })
 export class LoginPage {
-  private authService = inject(Auth);
+  private authService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
+  isRegisterFormOpen = false;
 
   form = this.formBuilder.nonNullable.group({
     username: ['', [Validators.required]],
@@ -27,11 +29,15 @@ export class LoginPage {
 
   onSubmit() {
     if (this.form.valid) {
-      this.authService.login(this.form.getRawValue());
-      this.router.navigate(['main']);
-      console.log('Successfully logged in.');
-    } else {
-      console.log(this.form.value);
+      this.authService.login(this.form.getRawValue())
+        .subscribe(res => {
+          console.log('Navigation to main page');
+          this.router.navigate(['main']);
+        })
     }
+  }
+
+  openModal() {
+    this.isRegisterFormOpen = true;
   }
 }

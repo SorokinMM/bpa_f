@@ -1,0 +1,33 @@
+<div class="page-content">
+  <div class="service-action">
+    <button class="create-button" (click)="$event.preventDefault(); editElementOpenModal(null)">
+      <span>New</span>
+    </button>
+  </div>
+  <div class="service-list-container">
+    <table class="service-list">
+      <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Service type</th>
+        <th>Duration</th>
+      </thead>
+      <tbody>
+        @for (service of services$ | async; track service.id) {
+          <tr (dblclick)="$event.preventDefault(); editElementOpenModal(service.id)">
+            <td>{{ service.id }}</td>
+            <td>{{ service.name }}</td>
+            <td>{{ service.serviceType }}</td>
+            <td>{{ service.duration }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-service-edit
+  [isOpen]="isEditFormOpen"
+  [serviceId]="editServiceId"
+  (closeRegisterForm) = "isEditFormOpen = false">
+</app-service-edit>

@@ -1,0 +1,42 @@
+
+/* Контейнер рамки */
+.form-field {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  padding: 0 12px 8px 12px; /* Внутренние отступы поля */
+  transition: border-color 0.2s ease;
+}
+
+.form-field:focus-within {
+  border-color: #007bff;
+}
+
+.field-label {
+  font-size: 10px;
+  color: #555;
+  padding: 0 6px; /* Отступы слева и справа, чтобы раздвинуть линию рамки */
+  margin-left: 8px; /* Смещение названия влево */
+  font-weight: 500;
+}
+
+.field-input {
+  width: 100%;
+  border: none;             /* Убираем собственную рамку инпута */
+  outline: none;            /* Убираем стандартную обводку при клике */
+  background: transparent;  /* Прозрачный фон */
+  font-size: 14px;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.field-inform {
+  display: block;          /* Превращаем в блочный элемент */
+  min-height: 20px;        /* Задаем минимальную высоту (равную высоте строки) */
+  line-height: 20px;       /* Центрируем текст по вертикали */
+  font-size: 14px;
+}
+
+select.field-input {
+  cursor: pointer;
+}

@@ -1,0 +1,67 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="close()">
+    <div class="modal-form" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <button type="button" class="submit-button" (click)="onSubmit()">Save</button>
+        <button type="button" class="close-button" (click)="close()">&times;</button>
+      </div>
+      @if (errorMessage) {
+        <div class="error-banner">
+          {{errorMessage}}
+        </div>
+      }
+      <form [formGroup]="serviceItemForm" (ngSubmit)="onSubmit()">
+        <fieldset class="form-field">
+          <legend class="field-label">ID</legend>
+          <label class="field-inform">{{serviceId}}</label>
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">NAME</legend>
+          <input class="field-input" type="text" id="name" placeholder="" formControlName="name">
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">SHORT NAME</legend>
+          <input class="field-input" type="text" id="shortName" placeholder="" formControlName="shortName">
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">RECEIPT NAME</legend>
+          <input class="field-input" type="text" id="receiptName" placeholder="" formControlName="receiptName">
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">SERVICE TYPE</legend>
+          <select class="field-input" id="serviceType" formControlName="serviceType">
+            <option value="" disabled selected></option>
+            @for (type of serviceTypes; track type) {
+              <option [value]="type">{{type}}</option>
+            }
+          </select>
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">DESCRIPTION</legend>
+          <input class="field-input" type="text" id="description" placeholder="" formControlName="description">
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">DURATION (minutes)</legend>
+          <input class="field-input" type="number" id="duration" placeholder="" formControlName="duration">
+        </fieldset>
+
+        @if (serviceItemForm.getRawValue().serviceType == "Group of services") {
+          <fieldset class="form-field">
+            <legend class="field-label">SUBSERVICES</legend>
+            <table>
+              <tbody>
+                @for (subservice of serviceItemForm.getRawValue().subServiceItems; track subservice.id) {
+                  <tr>
+                    <td>({{subservice.id}}) {{subservice.name}</td>
+                    <td>x</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </fieldset>
+        }
+      </form>
+    </div>
+
+  </div>
+}

@@ -1,1 +1,12 @@
-<p>sidebar works!</p>
+<nav>
+  <a class="menu-header">References</a>
+  <ul class="main-menu-list">
+    @for (menuReference of menuReferences; track menuReference.label) {
+      <li>
+        <button class="menu-item" type="button" (click)="openLink(menuReference.link)">
+          <span>{{menuReference.label}}</span>
+        </button>
+      </li>
+    }
+  </ul>
+</nav>

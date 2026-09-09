@@ -4,3 +4,80 @@
   --light-blue: #eef7ff;
   --dark-blue: #237dda;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный затемненный фон */
+
+  display: flex;
+  justify-content: flex-end; /* Выравнивает модальное окно по правому краю */
+  z-index: 1000;
+}
+
+.modal-form {
+  width: 400px;              /* Ширина панели (настройте под себя) */
+  max-width: 100%;
+  height: 100%;              /* Растягиваем на всю высоту экрана */
+  background-color: #ffffff;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow-y: auto;          /* Добавляем прокрутку, если контент не помещается */
+
+  /* Плавный визуальный отступ и тень слева */
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 28px;        /* Делаем крестик крупным и удобным для клика */
+  line-height: 1;         /* Убираем лишние скрытые отступы у шрифта */
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;             /* Убираем дефолтные паддинги кнопки */
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.submit-button {
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+  padding: 10px;
+  width: 150px;
+  margin-top: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-banner {
+  background-color: #fde8e8; /* Мягкий красный фон */
+  color: #e53e3e;            /* Насыщенный красный текст */
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #f8b4b4;
+  font-size: 14px;
+  margin-bottom: 15px;
+  font-family: sans-serif;
+}

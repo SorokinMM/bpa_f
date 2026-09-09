@@ -1,0 +1,75 @@
+/* Контейнер навигации */
+nav {
+  display: flex;
+  flex-direction: column;
+  width: 250px; /* Можно настроить под ваш дизайн */
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Заголовок меню */
+.menu-header {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8a8d93;
+  margin-bottom: 12px;
+  padding-left: 8px;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Список элементов */
+.main-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Небольшой отступ между кнопками */
+}
+
+/* Элемент списка */
+.main-menu-list li {
+  width: 100%;
+}
+
+/* Кнопка-ссылка внутри меню */
+.menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  color: #333840;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Эффект при наведении на элемент меню */
+.menu-item:hover {
+  background-color: #f0f2f5;
+  color: #007bff; /* Акцентный синий цвет */
+}
+
+/* Эффект при клике (активное состояние) */
+.menu-item:active {
+  background-color: #e4e7eb;
+  transform: scale(0.98); /* Легкий эффект нажатия */
+}
+
+/* Фокус для доступности с клавиатуры */
+.menu-item:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}

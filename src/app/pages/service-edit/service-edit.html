@@ -48,12 +48,33 @@
         @if (serviceItemForm.getRawValue().serviceType == "Group of services") {
           <fieldset class="form-field">
             <legend class="field-label">SUBSERVICES</legend>
+            <fieldset class="form-field">
+              <legend class="field-label">FIND SERVICE</legend>
+              <input
+                class="field-input"
+                type="text"
+                id="findService"
+                placeholder=""
+                formControlName="findService"
+                (focus)="onFindServiceFocus()"
+                (blur)="onFindServiceBlur()"
+              >
+              @if (showServiceDropdown && filteredServices.length > 0) {
+                <div class="service-dropdown">
+                  @for (service of filteredServices; track service.id) {
+                    <div class="dropdown-item" (mousedown)="selectService(service)">
+                      ({{service.id}}) {{service.name}}
+                    </div>
+                  }
+                </div>
+              }
+            </fieldset>
             <table>
               <tbody>
                 @for (subservice of serviceItemForm.getRawValue().subServiceItems; track subservice.id) {
                   <tr>
-                    <td>({{subservice.id}}) {{subservice.name}</td>
-                    <td>x</td>
+                    <td>({{subservice.id}}) {{subservice.name}}</td>
+                    <td><button type="button" class="remove-button" (click)="removeSubservice(subservice)">x</button></td>
                   </tr>
                 }
               </tbody>

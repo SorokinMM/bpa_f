@@ -1,6 +1,5 @@
-import { Component, inject, SimpleChanges } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ServiceItemService } from '../../services/service-item.service';
-import { ServiceListInterface } from '../../interfaces/service-list.interface';
 import { ServiceEdit } from '../service-edit/service-edit';
 import { AsyncPipe } from '@angular/common';
 
@@ -19,5 +18,10 @@ export class ServiceList {
   editElementOpenModal(id: string | null) {
     this.isEditFormOpen = true;
     this.editServiceId = id;
+  }
+
+  onModalClose() {
+    this.isEditFormOpen = false;
+    this.services$ = this.serviceItemService.getServiceList();
   }
 }

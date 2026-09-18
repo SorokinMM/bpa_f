@@ -28,6 +28,8 @@ export class ServiceEdit {
 
   protected serviceItem: ServiceItemInterface | undefined;
   protected errorMessage: string | null = null;
+  protected availableServices: ServiceItemInterface[] = [];
+  protected showServiceDropdown = false;
 
   readonly serviceTypes: string[] = ['Service', 'Group of services'];
 
@@ -40,6 +42,7 @@ export class ServiceEdit {
     description: ['', Validators.required],
     subServiceItems: [Array<SubserviceInterface>()],
     duration: [0, Validators.required],
+    findService: [''],
   });
 
   ngOnInit() {
@@ -49,9 +52,22 @@ export class ServiceEdit {
   ngOnChanges(changes: SimpleChanges) {
     if (this.isOpen && this.serviceId != null) {
       this.loadServiceData(this.serviceId);
+      this.loadAvailableServices();
     } else if (this.isOpen && this.serviceId == null) {
       this.serviceItemForm.reset();
+      this.loadAvailableServices();
     }
+  }
+
+  loadAvailableServices() {
+    this.serviceItemService.getServiceList().subscribe({
+      next: (services) => {
+        this.availableServices = services;
+      },
+      error: (err) => {
+        console.error('Failed to load services:', err);
+      },
+    });
   }
 
   loadServiceData(id: string) {
@@ -73,19 +89,29 @@ export class ServiceEdit {
 
   onSubmit() {
     console.log('Save service');
-    console.log('Service Item form validation: ' + this.serviceItemForm.valid);
-    console.log(this.serviceItemForm);
 
     if (this.serviceItemForm.valid) {
-      this.serviceItemService.createService(this.serviceItemForm.getRawValue()).subscribe({
-        next: () => {
-          this.close();
-        },
-        error: (error) => {
-          this.errorMessage = error;
-          this.cdr.markForCheck();
-        },
-      });
+      if (this.serviceId == null) {
+        this.serviceItemService.createService(this.serviceItemForm.getRawValue()).subscribe({
+          next: () => {
+            this.close();
+          },
+          error: (error) => {
+            this.errorMessage = error;
+            this.cdr.markForCheck();
+          },
+        });
+      } else {
+        this.serviceItemService.updateService(this.serviceId, this.serviceItemForm.getRawValue()).subscribe({
+          next: () => {
+            this.close();
+          },
+          error: (error) => {
+            this.errorMessage = error;
+            this.cdr.markForCheck();
+          },
+        })
+      }
     } else {
       console.log('Service Item form does not valid');
     }
@@ -105,5 +131,48 @@ export class ServiceEdit {
         subServiceControl.clearValidators();
       }
     })
+  }
+
+  get filteredServices(): ServiceItemInterface[] {
+    const searchTerm = this.serviceItemForm.controls.findService.value.toLowerCase();
+    if (!searchTerm) {
+      return this.availableServices;
+    }
+    return this.availableServices.filter(service =>
+      service.name.toLowerCase().includes(searchTerm) ||
+      service.shortName.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  onFindServiceFocus() {
+    this.showServiceDropdown = true;
+  }
+
+  onFindServiceBlur() {
+    setTimeout(() => {
+      this.showServiceDropdown = false;
+    }, 200);
+  }
+
+  selectService(service: ServiceItemInterface) {
+    const currentSubservices = this.serviceItemForm.controls.subServiceItems.value || [];
+    const exists = currentSubservices.some((s: SubserviceInterface) => s.id === service.id);
+
+    if (!exists) {
+      this.serviceItemForm.controls.subServiceItems.setValue([
+        ...currentSubservices,
+        { id: service.id, name: service.name }
+      ]);
+    }
+
+    this.serviceItemForm.controls.findService.setValue('');
+    this.showServiceDropdown = false;
+  }
+
+  removeSubservice(subservice: SubserviceInterface) {
+    const currentSubservices = this.serviceItemForm.controls.subServiceItems.value || [];
+    this.serviceItemForm.controls.subServiceItems.setValue(
+      currentSubservices.filter((s: SubserviceInterface) => s.id !== subservice.id)
+    );
   }
 }
